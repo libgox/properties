@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	"github.com/libgox/must"
 )
 
 type Properties struct {
@@ -74,17 +76,9 @@ func (p *Properties) GetIntOr(key string, defaultValue int) (int, error) {
 }
 
 func (p *Properties) MustGetInt(key string) int {
-	val, err := p.GetInt(key)
-	if err != nil {
-		panic(err)
-	}
-	return val
+	return must.Must(p.GetInt(key))
 }
 
 func (p *Properties) MustGetIntOr(key string, defaultValue int) int {
-	val, err := p.GetIntOr(key, defaultValue)
-	if err != nil {
-		panic(err)
-	}
-	return val
+	return must.Must(p.GetIntOr(key, defaultValue))
 }
